@@ -3,6 +3,8 @@ package org.launchcode.techjobs.console;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by LaunchCode
@@ -11,7 +13,7 @@ public class TechJobs {
 
     private static Scanner in = new Scanner(System.in);
 
-    public static void main (String[] args) {
+    public static void main(String[] args) {
 
         // Initialize our field map with key/name pairs
         HashMap<String, String> columnChoices = new HashMap<>();
@@ -59,11 +61,20 @@ public class TechJobs {
                 // What is their search term?
                 System.out.println("\nSearch term: ");
                 String searchTerm = in.nextLine();
+                //String errorCheck =
+
 
                 if (searchField.equals("all")) {
-                    System.out.println("Search all fields not yet implemented.");
+                    System.out.println("No Jobs Match Your Search");
+                    printJobs(JobData.findByValue(searchField, searchTerm));
+                //if ( searchTerm == null) {
+
+
+                        //System.out.println("No terms match your search");}
                 } else {
+                    System.out.println("No Jobs Match Your Search");
                     printJobs(JobData.findByColumnAndValue(searchField, searchTerm));
+
                 }
             }
         }
@@ -103,14 +114,49 @@ public class TechJobs {
                 validChoice = true;
             }
 
-        } while(!validChoice);
+        } while (!validChoice);
 
         return choiceKeys[choiceIdx];
     }
 
     // Print a list of jobs
     private static void printJobs(ArrayList<HashMap<String, String>> someJobs) {
+        //String errorCheck = String.valueOf(someJobs);
+        //Integer lengthCheck = errorCheck.length();
 
-        System.out.println("printJobs is not implemented yet");
-    }
-}
+        //for ( HashMap < String, String > job : someJobs ) {
+        //Set NewKey = someJobs;
+        //if (someJobs != null) {//String key = someJobs.getKeys();
+            //System.out.println("No jobs match your search");
+        //} else {
+        for (HashMap<String, String> job : someJobs) {
+
+            //System.out.println(errorCheck);
+
+
+                //for (String key : job.keySet()) {
+
+                    //System.out.println( key + " --->" + job.get( key ) );
+
+                    System.out.println("**********");
+                    // System.out.println( key + " --->" + job.get( key ) );
+                    System.out.println("position type: " + job.get("position type"));
+                    System.out.println("name: " + job.get("name"));
+                    System.out.println("employer: " + job.get("employer"));
+                    System.out.println("location: " + job.get("location"));
+                    System.out.println("core competency: " + job.get("core competency"));
+                    System.out.println("**********");
+                //}
+            }
+
+
+            }
+
+
+        }
+        //System.out.println(someJobs);
+
+
+
+
+

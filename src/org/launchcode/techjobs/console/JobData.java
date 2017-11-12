@@ -57,12 +57,12 @@ public class JobData {
     /**
      * Returns results of search the jobs data by key/value, using
      * inclusion of the search term.
-     *
+     * <p>
      * For example, searching for employer "Enterprise" will include results
      * with "Enterprise Holdings, Inc".
      *
-     * @param column   Column that should be searched.
-     * @param value Value of teh field to search for
+     * @param column Column that should be searched.
+     * @param value  Value of teh field to search for
      * @return List of all jobs matching the criteria
      */
     public static ArrayList<HashMap<String, String>> findByColumnAndValue(String column, String value) {
@@ -70,19 +70,63 @@ public class JobData {
         // load data, if not already loaded
         loadData();
 
+        String upperValue = value.toUpperCase();
+
         ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
 
         for (HashMap<String, String> row : allJobs) {
 
             String aValue = row.get(column);
 
-            if (aValue.contains(value)) {
+            if (aValue.toUpperCase().contains(upperValue)) {
+                jobs.add(row);
+            }
+        }
+        //System.out.println(column);
+        //System.out.println(value);
+        //System.out.println(jobs);
+        return jobs;
+    }
+
+    public static ArrayList<HashMap<String, String>> findByValue(String column, String value) {
+
+        //TODO Resolve Null Exception Error
+        //TODO write a for loop that goes through every column
+        loadData();
+
+        ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
+        String upperValue = value.toUpperCase();
+
+        ArrayList<String> fieldNames = new ArrayList<>();
+        fieldNames.add("name");
+        fieldNames.add("employer");
+        fieldNames.add("location");
+        fieldNames.add("position type");
+        fieldNames.add("core competency");
+
+
+        for (HashMap<String, String> row : allJobs) {
+            boolean executed = false;
+
+            for(String field : fieldNames) {
+                if (row.get(field).toUpperCase().contains(upperValue)) {
+                    executed = true;
+                }
+            }
+
+            if (executed == true) {
                 jobs.add(row);
             }
         }
 
-        return jobs;
+
+
+            return jobs;
+
     }
+
+
+
 
     /**
      * Read in data from a CSV file and store it in a list
@@ -124,5 +168,7 @@ public class JobData {
             e.printStackTrace();
         }
     }
+
+
 
 }
